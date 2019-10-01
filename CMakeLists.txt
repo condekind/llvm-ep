@@ -10,7 +10,7 @@ include(AddLLVM)
 add_definitions(${LLVM_DEFINITIONS})
 include_directories(${LLVM_INCLUDE_DIRS})
 
-#add_subdirectory(EdgeCounter)
+add_subdirectory(EdgeCounter)
 add_subdirectory(VarCounter)
 
 

@@ -28,11 +28,15 @@ extension=${program_file_name#*.}
 program_file_name=${program_file_name%.*}
 pass_path="$(dirname "$script_path")"
 varCounterPass=${script_path}/build/VarCounter/VarCounter.$suffix
+edgeCounterPass=${script_path}/build/EdgeCounter/EdgeCounter.$suffix
 
 if [ $# -eq 3 ]; then
 	OUTFILE=${3}
 else
 	OUTFILE="output.stats"
+	if [ -f output.stats ]; then
+		rm -f output.stats
+	fi
 fi
 
 echo $varCounterPass
@@ -64,7 +68,7 @@ function load(){
   $dir/build/bin/opt -mem2reg -instnamer -break-crit-edges $program_ll -S -o $program_ll
 
   echo "=== Loading varCounter pass with some auxiliary passes ===="
-  $dir/build/bin/opt -load $varCounterPass -VarCounter -stats -S -disable-output < $program_ll 2>> $OUTFILE
+  $dir/build/bin/opt -load $varCounterPass -VarCounter -load $edgeCounterPass -EdgeCounter -stats -S -disable-output < $program_ll 2>> $OUTFILE
 }
    
 

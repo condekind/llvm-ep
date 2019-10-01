@@ -32,14 +32,15 @@ struct VarCounter : public llvm::FunctionPass
 	// iterating through functions
 	virtual bool runOnFunction(Function &F)
 	{
-		errs() << "Reading function: " << F.getName() << "\n";
+		// function iteration
 		for(Function::iterator fit = F.begin(); fit != F.end(); fit++)
 		{
+			// basic block iteration
 			BasicBlock &BB = *fit;
 			for(BasicBlock::iterator bbit = BB.begin(); bbit != BB.end(); bbit++)
 			{
+				// operand iteration
 				Instruction *ins = &*bbit;
-				// iterating through operands of the current instruction
 				for( unsigned int i = 0; i < (*ins).getNumOperands(); i++ )
 				{
 					Value *v = ins->getOperand(i);

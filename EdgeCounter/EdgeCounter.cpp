@@ -8,20 +8,18 @@
 
 using namespace llvm;
 
-// these macros are used to record variable-related information.
+// these macros are used to record edge-related information.
 STATISTIC(numEdges, "Number of edges.");
 
 namespace {
-struct EdgeCounter : public llvm::BasicBlock
+struct EdgeCounter : public llvm::BasicBlockPass
 {
 
   public:
-
 	static char ID;
-	EdgeCounter() : BasicBlock(ID) {}
+	EdgeCounter() : BasicBlockPass(ID) {}
 	virtual ~EdgeCounter() {}
 
-	// iterating through functions
 	virtual bool runOnBasicBlock(BasicBlock &BB)
 	{
 		Instruction *ins = BB.getTerminator();
