@@ -25,7 +25,7 @@ struct EdgeCounter : public llvm::BasicBlock
 	virtual bool runOnBasicBlock(BasicBlock &BB)
 	{
 		Instruction *ins = BB.getTerminator();
-		currEdges += ins->getNumSuccessors();
+		numEdges += ins->getNumSuccessors();
 	} // runOnBasicBlock
 
 }; // end of pass
