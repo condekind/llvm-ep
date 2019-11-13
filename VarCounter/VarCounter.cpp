@@ -12,8 +12,8 @@
 using namespace llvm;
 
 // these macros are used to record variable-related information.
-STATISTIC(usedVars, "Number of variable uses (using GetNumUses).");
 STATISTIC(namedVars, "Number of named variables.");
+STATISTIC(usedVars, "Number of variable uses (using GetNumUses).");
 
 namespace {
 struct VarCounter : public llvm::FunctionPass
@@ -44,20 +44,25 @@ struct VarCounter : public llvm::FunctionPass
 				{
 					Value *v = ins->getOperand(i);
 
+					if ( !(v->hasName()) )
+						continue;
+
 					std::uintptr_t var = reinterpret_cast<std::uintptr_t>(v);
 
+					// increment count for new named variables
+					if ( !(nameBook[var]) )
+					{
+						nameBook[var] = true;
+						namedVars++;
+					}
+
+					// get count of all uses of this new named variable
 					if ( !VarCount[var] )
 					{
 						VarCount[var] = true;
 						usedVars += v->getNumUses();
 					}
 
-					// only count named variables that didn't appear yet.
-					if ( v->hasName() && !(nameBook[var]) )
-					{
-						nameBook[var] = true;
-						namedVars++;
-					}
 				} // operand iteration
 			} // basic block iteration
 		} // funtion iteration
