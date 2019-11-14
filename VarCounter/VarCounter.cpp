@@ -12,8 +12,8 @@
 using namespace llvm;
 
 // these macros are used to record variable-related information.
-STATISTIC(namedVars, "Number of named variables.");
-STATISTIC(usedVars, "Number of variable uses (using GetNumUses).");
+STATISTIC(usedVars, "Number of named variable uses");
+STATISTIC(namedVars, "Number of named variables");
 
 namespace {
 struct VarCounter : public llvm::FunctionPass
@@ -67,6 +67,7 @@ struct VarCounter : public llvm::FunctionPass
 			} // basic block iteration
 		} // funtion iteration
 
+		return true;
 	} // runOnFunction
 
 
@@ -76,4 +77,5 @@ struct VarCounter : public llvm::FunctionPass
 
 
 char VarCounter::ID = 0;
-static RegisterPass<VarCounter> X("VarCounter", "Named variables and variable use count pass.", false, false);
+static RegisterPass<VarCounter> X("VarCounter",
+    "Named variables and variable use count pass", false, false);

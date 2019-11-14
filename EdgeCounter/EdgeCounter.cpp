@@ -9,7 +9,7 @@
 using namespace llvm;
 
 // these macros are used to record edge-related information.
-STATISTIC(numEdges, "Number of edges.");
+STATISTIC(numEdges, "Number of edges");
 
 namespace {
 struct EdgeCounter : public llvm::BasicBlockPass
@@ -24,6 +24,7 @@ struct EdgeCounter : public llvm::BasicBlockPass
 	{
 		Instruction *ins = BB.getTerminator();
 		numEdges += ins->getNumSuccessors();
+		return true;
 	} // runOnBasicBlock
 
 }; // end of pass
@@ -31,4 +32,4 @@ struct EdgeCounter : public llvm::BasicBlockPass
 
 
 char EdgeCounter::ID = 0;
-static RegisterPass<EdgeCounter> X("EdgeCounter", "Edge count pass.", false, false);
+static RegisterPass<EdgeCounter> X("EdgeCounter", "Edge count pass", false, false);

@@ -19,12 +19,6 @@ add_subdirectory(VarCounter)
 #find_package(LLVM REQUIRED CONFIG)
 #include_directories(${LLVM_INCLUDE_DIRS})
 
-## Don't know why this is needed.
-#execute_process (COMMAND llvm-config --cxxflags --ldflags OUTPUT_VARIABLE LLVM_CONFIG_N)
-#string (REPLACE "\n" " " LLVM_CONFIG "${LLVM_CONFIG_N}")
-
-## Specifies custom flags for compilation. "-undefined dynamic_lookup" is OSX specific.
-#set (CMAKE_CXX_FLAGS "-O3 -g ${LLVM_CONFIG} -undefined dynamic_lookup")
 
 ## default
 #include_directories (include)

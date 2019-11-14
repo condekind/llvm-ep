@@ -77,3 +77,4 @@ clean ;
 cd $script_path
 compile ;
 load ;
+rm $program_ll
