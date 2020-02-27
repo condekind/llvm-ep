@@ -1,2 +1,2 @@
 # llvm-ep
-LLVM Extra Passes
+LLVM Extensions and Plugins
